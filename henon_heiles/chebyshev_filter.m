@@ -1,0 +1,9 @@
+function Y = chebyshev_filter(A,X,m,a,b)
+
+e = (b-a)./2; c = (a+b)./2;
+Y = (A*X - c*X)/e;
+for i = 2:m
+    Yn = (A*Y - c*Y)*(2/e) - X;
+    X = Y;
+    Y = Yn;
+end
