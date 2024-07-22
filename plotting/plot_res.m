@@ -1,7 +1,6 @@
 function plot_res(R)
 
 % Plot residual norm versus iteration
-
     Lw = 1;
     figure()
     semilogy(R(1,:),'linewidth',Lw)

@@ -1,4 +1,4 @@
-function [V,lam,R,cpu_t,a,b,Y] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m)
+function [V,lam,R,cpu_t,a,b,Y,RQ,gradRQ,PgradRQ] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,rq)
 
 % Subspace iteration with low-rank truncations
 % INPUT: V0 --> initial subspace of TT tensors (cell array)
@@ -10,6 +10,7 @@ function [V,lam,R,cpu_t,a,b,Y] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m)
 %        iteration) 
 %        m --> degree of Chebyshev polynomial
 %        Omitting a,b,m uses no polymomial filter.
+%        rq --> flag (0 or 1) to compute Rayleigh quotient and grads.
 
 % OUTPUT: V --> TT Ritz vectors (cell array)
 %         lam --> approximate (Ritz) values
@@ -23,6 +24,10 @@ lam = zeros(k,maxiter);
 V = cell(1,maxiter+1);
 R = zeros(k,maxiter); 
 Y  = zeros(maxiter,k,k);
+RQ = zeros(1,maxiter);
+gradRQ = cell(1,maxiter);
+PgradRQ = cell(1,maxiter);
+
 
 V{1} = tt_gs(V0,tol,rmax);
 %V{1} = V0;
@@ -39,6 +44,9 @@ for i = 1:maxiter
     end
 
     [V{i+1},lam(:,i),R(:,i),Y(i,:,:)] = RR_lr(Z,Htt,tol,rmax);
+    if rq == 1
+        [RQ(i),gradRQ{i},PgradRQ{i}] = rayleigh_quot(V{i}{end},Htt);
+    end
 
     a = max(real(lam(:,i))); % update filter left end-point
 
