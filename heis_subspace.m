@@ -20,7 +20,7 @@ Htt = Htt - abs(lam_max)*tt_eye(2,L);
 
 % Subspace iteration parameters
 k = 5;           % subspace dimension
-maxiter = 100;   % maximum # of iterations
+maxiter = 50;   % maximum # of iterations
 
 % Chebyshev filter parameters
 m = 5;                 % degree
@@ -38,9 +38,10 @@ for i = 1:k; V0{i} = round(V0{i},tol,rmax); end
 %[Vsub,lamsub,R] = subspace_iter(V0f,H,maxiter,1,a,b,m);
 
 %% Plot
-plot_res(R)
-plot_rank(Vsub);
-plot_eigs(lamsub);
-plot_cpu_t(cpu_t);
-plot_ritz_coeffs(Y,2);
-plot_RQ(RQ,gradRQ,PgradRQ)
+% plot_res(R)
+% plot_rank(Vsub);
+% plot_eigs(lamsub);
+% plot_cpu_t(cpu_t);
+% plot_ritz_coeffs(Y,2);
+animate_ritz_coeffs(Y,k-2);
+%plot_RQ(RQ,gradRQ,PgradRQ)

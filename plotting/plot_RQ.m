@@ -12,14 +12,6 @@ for i = 1:maxiter
 end
 
 Lw = 1;
-figure() % RQ
-semilogy(norm(RQ),'linewidth',Lw)
-hold on;
-xlabel('iteration','interpreter','latex')
-ylabel('RQ','Interpreter','latex')
-set(gca,'fontsize',20)
-set(gcf,'color','w');
-grid on
 
 figure() % Gradients
 semilogy(ngradRQ,'linewidth',Lw)

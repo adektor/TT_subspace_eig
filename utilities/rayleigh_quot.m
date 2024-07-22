@@ -15,6 +15,7 @@ RQ = dot(x,A*x);
 
 gradRQ = 2*(A*x - RQ*x);
 
+
 if isa(x,'tt_tensor')
     PgradRQ = 2*(axpx(A,x) - RQ*x);
 else

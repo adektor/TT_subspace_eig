@@ -35,7 +35,7 @@ for j = 1:k
     V{j} = Y(ind,j)*Z{ind};
     
     for p = 1:k
-        if p ~= ind && abs(Y(p,j))>1e-5
+        if p ~= ind %&& abs(Y(p,j))>1e-5
             V{j} = round(V{j} + Y(p,j)*Z{p},tol,rmax);
         end
     end
