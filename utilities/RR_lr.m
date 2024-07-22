@@ -1,4 +1,4 @@
-function [V,lam,r] = RR_lr(Z,Htt,tol,rmax)
+function [V,lam,r,Y] = RR_lr(Z,Htt,tol,rmax)
 
 % Rayleigh-Ritz projection with non-orthogonal low-rank basis vectors 
 % by solving a generalized eigenvalue problem
@@ -9,6 +9,7 @@ function [V,lam,r] = RR_lr(Z,Htt,tol,rmax)
 % OUTPUT: V --> low-rank Ritz vectors
 %         lam --> Ritz values
 %         R --> residual norms
+%         Y --> coefficient vectors from generalized eigenvalue problem
 
 k = length(Z); % dimension of subspace
 
@@ -26,11 +27,17 @@ P = overlap_mat(Z,AZ);
 Y = Y(:,ord);
 
 V = cell(1,k); r = zeros(1,k);
+
 % Construct Ritz vectors:
 for j = 1:k
     V{j} = Y(1,j)*Z{1};
-    for p = 2:k
-        V{j} = round(V{j} + Y(p,j)*Z{p},tol,rmax);
+    [ymax,ind] = max(abs(Y(:,j)));
+    V{j} = Y(ind,j)*Z{ind};
+    
+    for p = 1:k
+        if p ~= ind && abs(Y(p,j))>1e-5
+            V{j} = round(V{j} + Y(p,j)*Z{p},tol,rmax);
+        end
     end
     V{j} = V{j}./norm(V{j});
     r(j) = norm(Htt*V{j} - lam(j)*V{j}); % residual norm

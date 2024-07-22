@@ -57,3 +57,8 @@ V0 = random_TT_basis(2,L,512,k);
 for i = 1:k; V0{i} = round(V0{i},tol,rmax); end
 
 [Vsub16,~,R16,cpu_t16] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m);
+
+%% Plot
+plot_res(R4)
+plot_res(R8)
+plot_res(R16)

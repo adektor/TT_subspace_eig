@@ -16,7 +16,7 @@ Htt = round(Htt,1e-12);         % compress MPO ranks
 
 %% Krylov
 
-maxiter = 500;   % number of Krylov vectors
+maxiter = 100;   % number of Krylov vectors
 tol = 1e-12;     % truncation tolerance
 
 E_kry = zeros(4,maxiter);
@@ -24,7 +24,7 @@ ranks_kry = zeros(4,maxiter);
 
 v0 = tt_rand(2,L,1); v0 = round(v0,tol,1);
 [V,T,eigs] = lanczos(full(Htt),full(v0),maxiter);
-e 
+%%
 pp = 1;
 %for rmax = [32 30 16 4]
     rmax = 16; 
