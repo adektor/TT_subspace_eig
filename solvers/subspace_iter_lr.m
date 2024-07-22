@@ -45,7 +45,7 @@ for i = 1:maxiter
 
     [V{i+1},lam(:,i),R(:,i),Y(i,:,:)] = RR_lr(Z,Htt,tol,rmax);
     if rq == 1
-        [RQ(i),gradRQ{i},PgradRQ{i}] = rayleigh_quot(V{i}{end},Htt);
+        [RQ(i),gradRQ{i},PgradRQ{i}] = rayleigh_quot(V{i}{1},Htt);
     end
 
     a = max(real(lam(:,i))); % update filter left end-point

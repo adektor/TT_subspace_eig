@@ -13,7 +13,7 @@ end
 
 Lw = 1;
 figure() % RQ
-semilogy(RQ,'linewidth',Lw)
+semilogy(norm(RQ),'linewidth',Lw)
 hold on;
 xlabel('iteration','interpreter','latex')
 ylabel('RQ','Interpreter','latex')
@@ -24,10 +24,10 @@ grid on
 figure() % Gradients
 semilogy(ngradRQ,'linewidth',Lw)
 hold on;
-semilogy(nPgradRQ,'linewidth',Lw)
+semilogy(nPgradRQ,'--','linewidth',Lw)
 xlabel('iteration','interpreter','latex')
 ylabel('RQ gradient norm','Interpreter','latex')
-legend('Euclidean, Riemannian','Interpreter','latex')
+legend('Euclidean', 'Riemannian','Interpreter','latex')
 set(gca,'fontsize',20)
 set(gcf,'color','w');
 grid on
