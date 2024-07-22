@@ -1,7 +1,8 @@
+% ---------------------------------------------------------------------- %
+% Check convergence of TT subspace for various polynomial filter degrees
+% ---------------------------------------------------------------------- %
+
 clear all;
-set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-set(groot, 'defaultLegendInterpreter','latex');
-Lw = 1.5; Ms = 10;
 
 L = 16;   % # spins
 J = 1;   % interaction strength

@@ -1,10 +1,11 @@
 function [W] = overlap_mat(V1,V2)
-% Construct reorthogonalization matrix
-% INPUT: V --> cell array containing basis of TT vectors
+
+% Construct overlap matrix
+% INPUT: V --> cell array containing basis of N TT vectors
+% OUTPUT: N x N matrix W_ij = < V_i | V_j >
+
 
 N = length(V1); % dimension of basis
-
-% Construct overlap matrix W_ij = < V_i | V_j >
 W = zeros(N,N);
 for i = 1:N
     for j = 1:N

@@ -1,5 +1,23 @@
 function [V,lam,R,cpu_t,a,b,Y] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m)
 
+% Subspace iteration with low-rank truncations
+% INPUT: V0 --> initial subspace of TT tensors (cell array)
+%        Htt --> TT matrix
+%        maxiter --> number of subspace iterations
+%        tol --> truncation tolerance
+%        rmax --> max. rank
+%        a,b --> initial interval for polynomial filter (updated during
+%        iteration) 
+%        m --> degree of Chebyshev polynomial
+%        Omitting a,b,m uses no polymomial filter.
+
+% OUTPUT: V --> TT Ritz vectors (cell array)
+%         lam --> approximate (Ritz) values
+%         R --> residual of each Ritz vector at each iteration
+%         cpu_t --> CPU-time of each iteration
+%         a,b, --> updated endpoints for polynomial filter
+%         Y --> coefficients of Ritz vectors at each iteration
+
 k = length(V0);
 lam = zeros(k,maxiter);
 V = cell(1,maxiter+1);

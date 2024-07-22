@@ -1,3 +1,9 @@
+
+% -------------------------------- %
+% Low-rank TT approximate Lanczos 
+%   for Heisenberg Hamiltonian 
+% -------------------------------- %
+
 clear all;
 
 L = 6;   % # spins

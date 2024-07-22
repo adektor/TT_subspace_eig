@@ -1,4 +1,5 @@
 function H = heis(L,J)
+
 % Heisenberg hamiltonian
 % INPUT: L --> chain length
 %        J --> interaction strength

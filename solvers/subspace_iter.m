@@ -1,5 +1,19 @@
 function [V,lam,R] = subspace_iter(V0,A,maxiter,type,a,b,m)
 
+% Subspace iteration 
+% INPUT: V0 --> initial subspace of vectors arranged as columns of a matrix
+%        A --> matrix
+%        maxiter --> number of subspace iterations
+%        type --> 0=orthogonalize basis, other=gen. eig. problem
+%        a,b --> initial interval for polynomial filter (updated during
+%        iteration) 
+%        m --> degree of Chebyshev polynomial
+%        Omitting a,b,m uses no polymomial filter.
+
+% OUTPUT: V --> TT Ritz vectors (cell array)
+%         lam --> approximate (Ritz) values
+%         R --> residual of each Ritz vector at each iteration
+
 k = size(V0,2);
 lam = zeros(k,maxiter);
 V = cell(1,maxiter+1);

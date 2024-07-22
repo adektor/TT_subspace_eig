@@ -1,7 +1,9 @@
+
+% ---------------------------------------------------------------- %
+% Compare block-DMRG and approximate TT subspace for Henon-Heiles
+% ---------------------------------------------------------------- %
+
 clear all;
-set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-set(groot, 'defaultLegendInterpreter','latex');
-Lw = 1.5; Ms = 10;
 
 n = 28; % num. Hermite points per dimension
 d = 3;  % dimension

@@ -1,7 +1,7 @@
-%
-% Comparison of Krylov (Lanczos) and subspace iteration 
-% w/ full vectors and with low-rank truncation. 
-%
+% ---------------------------------------------------------------- %
+% Compare convergence of low-rank TT Lanczos and subspace methods 
+% with corresponding methods using no low-rank truncation 
+% ---------------------------------------------------------------- %
 
 clear all;
 set(groot, 'defaultAxesTickLabelInterpreter','latex');

@@ -1,7 +1,11 @@
+
+
+% -------------------------------- %
+% Compare convergence of low-rank TT 
+%   Lanczos and subspace methods 
+% -------------------------------- %
+
 clear all;
-set(groot, 'defaultAxesTickLabelInterpreter','latex');
-set(groot, 'defaultLegendInterpreter','latex');
-Lw = 1.5; Ms = 10;
 
 L = 10;   % # spins
 J = 1;   % interaction strength

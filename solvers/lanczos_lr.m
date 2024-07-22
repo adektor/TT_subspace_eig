@@ -7,6 +7,8 @@ function [V,T,eigs] = lanczos_lr(Att,v0tt,maxiter,tol,rmax,a,b,m)
 %        maxiter --> number of Lanczos steps
 %        rmax --> max tt-rank
 %        tol --> truncation tolerance
+%        a,b,m --> polynomial filter parameters (no filter if omitted)
+
 % OUTPUT: V --> cell array containing tt-vectors
 
 alpha = [];

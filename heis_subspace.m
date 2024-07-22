@@ -1,3 +1,10 @@
+
+% -------------------------------- %
+% Low-rank TT subspace iteration 
+%  w/ polynomial acceleration 
+%  for Heisenberg Hamiltonian 
+% -------------------------------- %
+
 clear all;
 
 L = 12;   % # spins
@@ -21,9 +28,8 @@ a = -1; b = 0;         % window of spectrum to avoid
 
 V0 = random_TT_basis(2,L,512,k);
 
-% low-rank subspace iteration
 tol = 1e-12;     % truncation tolerance
-rmax = 2;       % max rank
+rmax = 2;        % max rank
 for i = 1:k; V0{i} = round(V0{i},tol,rmax); end
 [Vsub,lamsub,R,cpu_t,~,~,Y] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m);
 

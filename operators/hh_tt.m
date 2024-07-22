@@ -1,5 +1,7 @@
 function H = hh_tt(n,d)
 
+% Construct Henon-Heiles TT matrix with mode sizes n and dimension d
+
 % calculate Hermite nodes by symmetric companion matrix:
 % (Golub/Welsh-type algorithm)
 offdiag = sqrt(0.5*[1:n-1]);

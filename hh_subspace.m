@@ -1,3 +1,8 @@
+
+% ---------------------------------------------------------------- %
+% Approximate TT subspace for Henon-Heiles Hamiltonian
+% ---------------------------------------------------------------- %
+
 clear all;
 
 n = 28; % num. Hermite points per dimension
@@ -26,7 +31,7 @@ V0 = random_TT_basis(n,d,32,k);
 tol = 1e-12;     % truncation tolerance
 rmax = 4;        % max rank
 for i = 1:k; V0{i} = round(V0{i},tol,rmax); end
-[Vsub,lamsub,R,cpu_t] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m);
+[Vsub,lamsub,R,cpu_t,~,~,Y] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m);
 
 %% Full subspace iteration
 %H = full(Htt);
@@ -39,3 +44,4 @@ plot_res(R)
 plot_rank(Vsub);
 plot_eigs(lamsub);
 plot_cpu_t(cpu_t);
+plot_ritz_coeffs(Y,2);

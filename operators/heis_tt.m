@@ -1,5 +1,7 @@
 function H = heis_tt(L,J)
 
+% TT matrix for Spin 1/2 Heisenberg chain of length L and interaction strength J
+
 % pauli matrices
 Sx = [0 1; 1 0];    Sx = reshape(Sx,[],1); Sx = permute(Sx,[3 2 1]);
 Sy = [0 -1i; 1i 0]; Sy = reshape(Sy,[],1); Sy = permute(Sy,[3 2 1]);

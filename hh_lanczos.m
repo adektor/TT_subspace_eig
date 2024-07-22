@@ -1,3 +1,8 @@
+
+% ---------------------------------------------------------------- %
+% Approximate TT Lanczos for Henon-Heiles Hamiltonian
+% ---------------------------------------------------------------- %
+
 clear all;
 
 n = 28; % num. Hermite points per dimension

@@ -1,7 +1,9 @@
+
+% ---------------------------------------------------------------- %
+% Check convergence of TT subspace for various subspace sizes
+% ---------------------------------------------------------------- %
+
 clear all;
-set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-set(groot, 'defaultLegendInterpreter','latex');
-Lw = 1.5; Ms = 10;
 
 L = 32;   % # spins
 J = 1;   % interaction strength

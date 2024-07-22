@@ -1,7 +1,9 @@
+
+% ---------------------------------------------------------------- %
+% Compare block-DMRG and approximate TT subspace for Heisenberg
+% ---------------------------------------------------------------- %
+
 clear all;
-set(groot, 'defaultAxesTickLabelInterpreter','latex'); 
-set(groot, 'defaultLegendInterpreter','latex');
-Lw = 1.5; Ms = 10;
 
 num_el_dmrg = zeros(1,5);
 num_el_sub = zeros(1,5);
