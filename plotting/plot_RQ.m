@@ -23,4 +23,3 @@ legend('Euclidean', 'Riemannian','Interpreter','latex')
 set(gca,'fontsize',20)
 set(gcf,'color','w');
 grid on
-

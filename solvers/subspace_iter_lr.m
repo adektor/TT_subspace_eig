@@ -1,4 +1,4 @@
-function [V,lam,R,cpu_t,a,b,Y,RQ,gradRQ,PgradRQ] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,rq)
+function [V,lam,R,cpu_t,a,b,Y,RQ,gradRQ,PgradRQ] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,rq,coeff_tol)
 
 % Subspace iteration with low-rank truncations
 % INPUT: V0 --> initial subspace of TT tensors (cell array)
@@ -11,6 +11,7 @@ function [V,lam,R,cpu_t,a,b,Y,RQ,gradRQ,PgradRQ] = subspace_iter_lr(V0,Htt,maxit
 %        m --> degree of Chebyshev polynomial
 %        Omitting a,b,m uses no polymomial filter.
 %        rq --> flag (0 or 1) to compute Rayleigh quotient and grads.
+%        coeff_tol --> tolerance for RR coefficients (default 1e-16)
 
 % OUTPUT: V --> TT Ritz vectors (cell array)
 %         lam --> approximate (Ritz) values
@@ -18,6 +19,12 @@ function [V,lam,R,cpu_t,a,b,Y,RQ,gradRQ,PgradRQ] = subspace_iter_lr(V0,Htt,maxit
 %         cpu_t --> CPU-time of each iteration
 %         a,b, --> updated endpoints for polynomial filter
 %         Y --> coefficients of Ritz vectors at each iteration
+
+if nargin == 9 
+    coeff_tol = 1e-32;
+end
+
+ev_lock=1e-32;
 
 k = length(V0);
 lam = zeros(k,maxiter);
@@ -36,16 +43,20 @@ for i = 1:maxiter
     tic
     Z = cell(1,k);
     for j = 1:k
-        if nargin < 6
-            Z{j} = round(Htt*V{i}{j},tol,rmax);
+        if i>2 && abs(R(j,i)-R(j,i-1))>ev_lock
+            if nargin < 6
+                Z{j} = round(Htt*V{i}{j},tol,rmax);
+            else
+                Z{j} = chebyshev_filter_tt(Htt,V{i}{j},m,a,b,tol,rmax);
+            end
         else
-            Z{j} = chebyshev_filter_tt(Htt,V{i}{j},m,a,b,tol,rmax);
+            Z{j} = V{i}{j};
         end
     end
 
-    [V{i+1},lam(:,i),R(:,i),Y(i,:,:)] = RR_lr(Z,Htt,tol,rmax);
+    [V{i+1},lam(:,i),R(:,i),Y(i,:,:)] = RR_lr(Z,Htt,tol,rmax,coeff_tol);
     if rq == 1
-        [RQ(i),gradRQ{i},PgradRQ{i}] = rayleigh_quot(V{i}{end},Htt);
+        [RQ(i),gradRQ{i},PgradRQ{i}] = rayleigh_quot(V{i}{1},Htt);
     end
 
     a = max(real(lam(:,i))); % update filter left end-point
