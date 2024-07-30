@@ -14,10 +14,6 @@ function [V,lam,r,Y] = RR_lr(Z,Htt,tol,rmax,coeff_tol)
 %         R --> residual norms
 %         Y --> coefficient vectors from generalized eigenvalue problem
 
-if nargin == 4
-    coeff_tol = 1e-16;
-end
-
 k = length(Z); % dimension of subspace
 
 AZ = cell(1,k);
@@ -31,7 +27,7 @@ P = overlap_mat(Z,AZ);
 
 [Y,Lambda] = eig(P,W);
 Lambda = real(Lambda);
-[lam,ord] = sort(diag(Lambda),'ascend');
+[lam,ord] = sort(diag(Lambda),'descend');
 Y = Y(:,ord);
 
 V = cell(1,k); r = zeros(1,k);

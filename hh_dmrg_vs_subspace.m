@@ -6,7 +6,8 @@
 clear all;
 
 n = 28; % num. Hermite points per dimension
-d = 3;  % dimension
+d = 4;  % dimension
+rmax = 10;       % max rank
 
 Htt = hh_tt(n,d);
 Htt = round(Htt,1e-10);         % compress MPO ranks
@@ -19,17 +20,16 @@ Htt = Htt - abs(lam_max)*tt_eye(n,d);
 %% Block DMRG
 % parameters
 tolDMRG = 1e-5;              % truncation tolerance
-n_eigvecs = 3;           % # of eigenvectors
+n_eigvecs = 3;               % # of eigenvectors
 
-[x,theta,testdata] = dmrg_eig(Htt, tolDMRG, 'b', n_eigvecs, 'max_full_size', 1024);
+[x,theta,testdata] = dmrg_eig(Htt, tolDMRG, 'b', n_eigvecs, 'max_full_size', 1024,'rmax',rmax);
 
 % move block around and compute residuals/memory:
 [R_dmrg,numel_blk] = check_block_dmrg(x,theta,Htt,tolDMRG*1e-1);
 
 %% Subspace iteration
 k = 8;           % subspace dimension
-maxiter = 40;   % maximum # of iterations
-rmax = 20;       % max rank
+maxiter = 40;    % maximum # of iterations
 
 % Chebyshev filter parameters
 m = 6;                 % degree
