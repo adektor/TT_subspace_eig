@@ -8,7 +8,7 @@ This repository requires the [TT-Toolbox](https://github.com/oseledets/TT-Toolbo
 
 ## Usage
 
-To compute approximate eigenvectors of a Heisenberg Hamiltonian using the Lanczos method and Chebyshev-filtered subspace iteration, run:
+To compute approximate eigenvectors of a Heisenberg Hamiltonian using the Lanczos method and Chebyshev-filtered subspace iteration and compare convergence, run:
 
 ```matlab
 compare_subspace
