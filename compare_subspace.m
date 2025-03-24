@@ -33,7 +33,7 @@ m = 2;                 % degree
 a = -1; b = 0;         % window of spectrum to avoid
 
 V0 = random_TT_basis(2,L,rmax,k);
-[Vsub,lam_sub,R,cpu_sub,a,b] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m);
+[Vsub,lam_sub,R,cpu_sub,a,b] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,0);
 
 % Subspace eigenvalue error
 neigs = 5;
@@ -43,7 +43,8 @@ for i = 1:neigs
         Es(i,j) = min(abs( lam(i) - lam_sub(:,j)));
     end
 end
-%%
+
+%% Plot subspace error
 Lw = 1.5;
 figure()
 semilogy(Es(1,:),'linewidth',Lw)
@@ -74,6 +75,7 @@ for i = 1:neigs
     end
 end
 
+%% plot Krylov error
 figure()
 semilogy(Ek(1,:),'linewidth',Lw)
 hold on;
@@ -86,7 +88,6 @@ ylim([1e-15 1e2])
 grid on
 
 for j = 2:neigs
-    %pause(1)
     semilogy(Ek(j,:),'linewidth',Lw)
 end
 

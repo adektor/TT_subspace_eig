@@ -1,4 +1,4 @@
-function [V,lam,r,Y,RR_err] = RR_lr(Z,Htt,tol,rmax,coeff_tol,var_mv,tol_mv)
+function [V,lam,r,Y,RR_err] = RR_lr(Z,Htt,tol,rmax,coeff_tol)
 
 % Rayleigh-Ritz projection with non-orthogonal low-rank basis vectors 
 % by solving a generalized eigenvalue problem
@@ -19,12 +19,8 @@ k = length(Z); % dimension of subspace
 AZ = cell(1,k);
 RR_err = zeros(k,1);
 for j = 1:k
-    if var_mv == 1 % variational matvec
-        [AZ{j},~] = amen_mv(Htt,Z{j},tol_mv,'y0',Z{j});
-    else % standard matvec + SVD
-        AZ{j} = round(Htt*Z{j},tol,rmax);
-        RR_err(j) = norm(AZ{j} - Htt*Z{j})./norm(Htt*Z{j});
-    end
+    AZ{j} = round(Htt*Z{j},tol,rmax);
+    RR_err(j) = norm(AZ{j} - Htt*Z{j})./norm(Htt*Z{j});
 end
 
 % Galerkin problem: generalized eigenvalue of dimension m
@@ -50,12 +46,7 @@ for j = 1:k
         end
     end
     V{j} = V{j}./norm(V{j});
-
-    if var_mv == 1 % variational matvec
-        r(j) = norm(amen_mv(Htt,V{j},tol_mv,'y0',V{j}) - lam(j)*V{j}); % residual norm
-    else % standard matvec + SVD
-        r(j) = norm(Htt*V{j} - lam(j)*V{j}); % residual norm
-    end
+    r(j) = norm(Htt*V{j} - lam(j)*V{j}); % residual norm
 end
 
 end
