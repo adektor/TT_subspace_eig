@@ -1,6 +1,12 @@
-function H = heis_tt(L,J)
+function H = heis_tt(L,Jx,Jy,Jz,h)
 
 % TT matrix for Spin 1/2 Heisenberg chain of length L and interaction strength J
+
+if nargin == 2 % only one interaction parameter
+    Jy = Jx;
+    Jz = Jx;
+    h = Jx;
+end
 
 % pauli matrices
 Sx = [0 1; 1 0];    Sx = reshape(Sx,[],1); Sx = permute(Sx,[3 2 1]);
@@ -24,7 +30,7 @@ for j = 1:L-1 % for local operator we make a rank-1 MPO
     end
     tt = tt_from_cores(cores);
     tt_mat = tt_matrix(tt,2*ones(1,L));
-    H = H + tt_mat; % add rank-1 MPO to Hamiltonian
+    H = H + Jx*tt_mat; % add rank-1 MPO to Hamiltonian
 end
 
 %% Syy terms
@@ -39,7 +45,7 @@ for j = 1:L-1 % for local operator we make a rank-1 MPO
     end
     tt = tt_from_cores(cores);
     tt_mat = tt_matrix(tt,2*ones(1,L));
-    H = H + tt_mat; % add rank-1 MPO to Hamiltonian
+    H = H + Jy*tt_mat; % add rank-1 MPO to Hamiltonian
 end
 
 %% Szz terms
@@ -54,7 +60,7 @@ for j = 1:L-1 % for local operator we make a rank-1 MPO
     end
     tt = tt_from_cores(cores);
     tt_mat = tt_matrix(tt,2*ones(1,L));
-    H = H + tt_mat; % add rank-1 MPO to Hamiltonian
+    H = H + Jz*tt_mat; % add rank-1 MPO to Hamiltonian
 end
 
 %% Sz terms
@@ -69,9 +75,9 @@ for j = 1:L % for local operator we make a rank-1 MPO
     end
     tt = tt_from_cores(cores);
     tt_mat = tt_matrix(tt,2*ones(1,L));
-    H = H + tt_mat; % add rank-1 MPO to Hamiltonian
+    H = H + h*tt_mat; % add rank-1 MPO to Hamiltonian
 end
 
-H = -J*H;
+H = -H;
 
 end

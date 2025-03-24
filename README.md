@@ -1,3 +1,3 @@
-Accelerated subspace iteration in the TT format. Requires the TT-Toolbox https://github.com/oseledets/TT-Toolbox
+Inexact subspace projection methods for computing approximate eigenvectors in the Tensor Train (TT) format. This repository requires the TT-Toolbox https://github.com/oseledets/TT-Toolbox
 
-The scripts titled heis*.m and hh*.m in the parent directory are experiments that can be run. 
+Running the script compare_subspace.m computes approximate eigenvectors of a Heisenberg Hamiltonian using Lanczos method and Chebyshev filtered subspace iteration and compares convergence of the two methods. 

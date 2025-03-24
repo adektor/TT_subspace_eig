@@ -35,10 +35,6 @@ for j = 2:maxiter
     % construct T and compute eigs
     T = diag(alpha) + diag(beta(2:end),-1) + diag(beta(2:end),1);
     eigs{j} = eig(T); eigs{j} = sort(eigs{j},'descend');
-
-    if mod(j,10) == 0 
-        fprintf("Iteration %i: \n",j)
-    end
 end
 
 end

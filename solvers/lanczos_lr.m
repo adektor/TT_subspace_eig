@@ -1,6 +1,6 @@
 function [V,T,eigs] = lanczos_lr(Att,v0tt,maxiter,tol,rmax,a,b,m)
 
-% Approximate Lanczos with TT vectors/matrix 
+% Inexact Lanczos with TT vectors/matrix
 % 
 % INPUT: Att --> tt-matrix
 %        v0tt --> tt-vector (norm 1)
@@ -10,6 +10,8 @@ function [V,T,eigs] = lanczos_lr(Att,v0tt,maxiter,tol,rmax,a,b,m)
 %        a,b,m --> polynomial filter parameters (no filter if omitted)
 
 % OUTPUT: V --> cell array containing tt-vectors
+%         T --> Tridiagonal coefficient matrix
+%         eigs --> approximate eigenvalues
 
 alpha = [];
 beta = 0;
@@ -62,7 +64,7 @@ for j = 2:maxiter
     eigs{j} = sort(real(eigs{j}),'descend');
     
     if mod(j,10) == 0
-        fprintf("Lanczos iteration %i: \t Condition # of overlap: %.3e \n",j, cond(W))
+        fprintf("Lanczos iteration %i: \t Condition # of basis: %.3e \n",j, cond(W))
     end
 end
 
