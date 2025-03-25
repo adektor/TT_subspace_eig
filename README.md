@@ -1,6 +1,7 @@
 # Inexact Subspace Projection Methods for Tensor Train Eigenvector Computation
 
-This repository implements inexact subspace projection methods for computing approximate eigenvectors in the Tensor Train (TT) format.
+Inexact Lanczos and subspace iteration methods for computing approximate eigenvectors in the Tensor Train (TT) format. 
+https://arxiv.org/abs/2502.19578
 
 ## Requirements
 
