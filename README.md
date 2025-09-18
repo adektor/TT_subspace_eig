@@ -5,7 +5,12 @@ https://arxiv.org/abs/2502.19578
 
 ## Requirements
 
-This repository requires the [TT-Toolbox](https://github.com/oseledets/TT-Toolbox). Please ensure that it is installed and added to your MATLAB path before running any scripts.
+This repository requires the [TT-Toolbox](https://github.com/oseledets/TT-Toolbox). Please ensure that it is installed and added to your MATLAB path before running any scripts. Run 
+
+```matlab
+setup
+```
+to add the necessary paths to your environment.
 
 ## Usage
 
