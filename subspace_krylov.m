@@ -33,7 +33,7 @@ m = 2;                 % degree
 a = -1; b = 0;         % window of spectrum to avoid
 
 V0 = random_TT_basis(2,L,rmax,k);
-[Vsub,lam_sub,R,cpu_sub,a,b] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,0);
+[Vsub,lam_sub,R,cpu_sub,a,b] = subspace_iter_lr(V0,Htt,maxiter,tol,rmax,a,b,m,0,0,1);
 
 % Subspace eigenvalue error
 neigs = 5;

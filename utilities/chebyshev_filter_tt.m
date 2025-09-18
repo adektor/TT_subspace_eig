@@ -1,4 +1,4 @@
-function Y = chebyshev_filter_tt(A,X,m,a,b,tol,rmax,ts_mv)
+function Y = chebyshev_filter_tt(A,X,k,a,b,tol,rmax,ts)
 
 % Chebyshev polynomial filter with low-rank truncations. 
 % INPUT: A --> TT matrix
@@ -7,31 +7,48 @@ function Y = chebyshev_filter_tt(A,X,m,a,b,tol,rmax,ts_mv)
 %        a,b --> left,right endpoints for linear map
 %        tol --> truncation tolerance
 %        rmax --> max. rank
-%        var --> 0/1 Compute matvec variationally with AMEn (default 0)
+%        ts --> truncation in tangent space 
 
 %        OUTPUT: Y --> approximately P(A)X
 
-if tol > 5e-1; tol_mv = 5e-1; end
-
 e = (b-a)./2; c = (a+b)./2;
 
-if ts_mv == 1 % variational matvec
-    [AX,~] = axpx(A,X);
-else % standard matvec + SVD
-    AX = round(A*X,tol,rmax);
-end
+if ts
+    I = tt_eye(X.n);
+    %Y = ts_proj_matvec((1/e)*(A-c*I), X, X);
+    %Y = round(Y, tol, rmax);
+    Y = my_axpx((1/e)*(A-c*I), X);
+    
+    for i = 2:k
+        % the following two ts_proj can be combined into 1 using
+        % a function that approximates Ax + b on the tangent space at x
+        
+        %Yn = ts_proj_matvec((2/e)*(A-c*I), Y, Y);
+        %Yn = round(Yn, tol, rmax);
 
-Y = round((AX - c*X)/e, tol, rmax);
-for i = 2:m
-
-    if ts_mv == 1 % variational matvec
-        %AY = amen_mv(A,Y,tol_mv,'y0',X);
-        AY = axpx(A,Y);
-    else % standard matvec + SVD
-        AY = round(A*Y,tol,rmax);
+        %Yn = axpx((2/e)*(A-c*I), Y);
+        
+        %Yn = ts_proj_sum({Yn,-1*X},Yn);
+        %Yn = round(Yn, tol, rmax);
+        
+        %Yn = round(Yn-X,tol,rmax);
+        
+        Yn = my_pax_z(-X,(2/e)*(A-c*I),Y);
+        
+        X = Y;
+        Y = Yn;
     end
 
-    Yn = round(round(AY - c*Y,tol,rmax)*(2/e) - X, tol, rmax);
-    X = Y;
-    Y = Yn;
+else % SVD truncation
+
+    AX = round(A*X,tol,rmax);
+    Y = round((AX - c*X)/e, tol, rmax);
+
+    for i = 2:k
+        AY = round(A*Y,tol,rmax);
+        Yn = round(round(AY - c*Y,tol,rmax)*(2/e) - X, tol, rmax);
+        X = Y;
+        Y = Yn;
+    end
+
 end
