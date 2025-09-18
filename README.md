@@ -9,7 +9,14 @@ This repository requires the [TT-Toolbox](https://github.com/oseledets/TT-Toolbo
 
 ## Usage
 
-To compute approximate eigenvectors of a Heisenberg Hamiltonian using the Lanczos method and Chebyshev-filtered subspace iteration and compare convergence, run:
+To compare TT subspace iteration and TT Lanczos (reproduces results in Figure 6.1), run:
 
 ```matlab
-compare_subspace
+subspace_krylov
+```
+
+To compare TT subspace iteration and DMRG (reproduces results in Figure 6.2), run:
+
+```matlab
+subspace_dmrg
+```
